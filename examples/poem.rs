@@ -3,7 +3,7 @@ use markov_chain::MarkovChain;
 fn main() {
     // Provide window size and output size as arguments.
     let env_args = std::env::args().collect::<Vec<_>>();
-    let window_size = if let Some(size) = env_args.get(1) {
+    let max_chain_length = if let Some(size) = env_args.get(1) {
         size.parse::<usize>().unwrap_or(2)
     } else {
         2
@@ -19,7 +19,7 @@ fn main() {
     print!("{}", words[0]);
     let mut buffer = vec![words[0]];
 
-    let chain = MarkovChain::new(window_size, words);
+    let chain = MarkovChain::new(max_chain_length, words);
 
     let mut finished = false;
     let mut counter = 0;
