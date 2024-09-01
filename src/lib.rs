@@ -39,10 +39,20 @@ where
 
     /// Generate a new state based on the given state.
     pub fn generate(&self, state: &Vec<State>) -> Option<&State> {
+        self.generate_with_length(self.max_chain_length, state)
+    }
+
+    /// Generate a new state based on the given state.
+    pub fn generate_with_length(
+        &self,
+        max_chain_length: usize,
+        state: &Vec<State>,
+    ) -> Option<&State> {
+        // Ensure that the given length is not greater than the maximum calculated chain length.
+        let mut max_chain_length = self.max_chain_length.min(max_chain_length);
         // Iterate over the state to find a prediction.
         // Decrease window size if nothing was found to allow more
         // generation options.
-        let mut max_chain_length = self.max_chain_length;
         while max_chain_length > 0 {
             let idx = if state.len() < max_chain_length {
                 0

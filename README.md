@@ -26,6 +26,12 @@ if let Some(next) = chain.generate(&buffer){
     buffer.push(next);
 }
 println!("{:?}", buffer);
+
+// Alternatively you can specify a different window size when generating
+if let Some(next) = chain.generate_with_length(2, &buffer){
+    buffer.push(next);
+}
+println!("{:?}", buffer);
 ```
 
 See `examples/poem.rs` for a more complete example that randomly outputs text from a file.
